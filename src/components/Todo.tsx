@@ -1,4 +1,4 @@
-import { PlusCircle, ListBullets } from 'phosphor-react';
+import { PlusCircle } from 'phosphor-react';
 import { ChangeEvent, useState } from 'react';
 import Task from './Task';
 import { ITask } from '../interfaces';
@@ -77,10 +77,10 @@ export default function Todo() {
     }
   }
 
-  function updateTask(task: string): void {
-    setTodoList(todoList.filter((item) => item.task === task));
+  // function updateTask(task: string): void {
+  //   setTodoList(todoList.filter((item) => item.task === task));
 
-  }
+  // }
   return (
     <div className=' flex items-center justify-center'>
 
