@@ -1,6 +1,6 @@
 import { PlusCircle } from 'phosphor-react';
 import { ChangeEvent, useState } from 'react';
-import Task from './Task';
+import Task from '../components/Task';
 import { ITask } from '../interfaces';
 
 export default function Todo() {
@@ -9,6 +9,7 @@ export default function Todo() {
   const [task, setTask] = useState<string>('');
   const [taskStatus, setTaskStatus] = useState<string>('pendente');
   const [filter, setFilter] = useState<string>('data de criação');
+  // const [editMode, setEditMode] = useState<boolean>(false);
 
   async function createTask() {
     if (!task || undefined) {
@@ -22,10 +23,10 @@ export default function Todo() {
         task,
         status: taskStatus,
         date: new Date(),
-        filter: taskStatus,
-      }
+        }
     ]);
     setTask('');
+    // setInputTask(task)
     console.log([...todoList, { task, status: taskStatus }]);
   }
 
@@ -50,7 +51,6 @@ export default function Todo() {
         task: item,
         status: todoList.filter((item2) => item2.task === item)[0].status,
         date: todoList.filter((item2) => item2.task === item)[0].date,
-        filter: todoList.filter((item2) => item2.task === item)[0].filter,
       }
     },
       ))
@@ -62,25 +62,36 @@ export default function Todo() {
         task: todoList.filter((item2) => item2.date === item)[0].task,
         status: todoList.filter((item2) => item2.date === item)[0].status,
         date:item,
-        filter: todoList.filter((item2) => item2.date === item)[0].filter,
       }}
       ))
     } 
+  //   if(value === 'status'){
+  //     setFilter('status')
+  //     setTodoList(todoList.map((item) => item.S).sort().map((item) =>{
+  //   return {
+  //     task: todoList.filter((item2) => item2.date === item)[0].task,
+  //     status: todoList.filter((item2) => item2.date === item)[0].status,
+  //     date:item,
+  //   }}
+  //   ))
+  // } 
+
   }
   
   // https://pt.stackoverflow.com/questions/78629/prompt-de-confirma%c3%a7%c3%a3o-de-exclus%c3%a3o-com-javascript-e-asp
 
   function deleteTask(task: string): void {
-    const confirm = window.confirm('deseja excluir esta tarefa?');
+    const confirm = window.confirm('esta tarefa será excluida');
     if (confirm === true) {
       setTodoList(todoList.filter((item) => item.task !== task));
     }
   }
 
-  // function updateTask(task: string): void {
-  //   setTodoList(todoList.filter((item) => item.task === task));
 
+  // function updateTask(): void {
+  //   setEditMode(true);
   // }
+
   return (
     <div className=' flex items-center justify-center'>
 
@@ -96,7 +107,8 @@ export default function Todo() {
       
         <div className='flex flex-col justify-start space-y-2'>
           {todoList.map((item: ITask, key: number) => {
-            return <Task key={key} task={item} deleteTask={deleteTask} />;
+            return <Task key={key} task={item} deleteTask={deleteTask}
+            />;
           })}
 
           <input

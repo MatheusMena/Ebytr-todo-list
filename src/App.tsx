@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from './components/Header';
-import Todo from './components/Todo';
+import Todo from './pages/Todo';
 
 function App() {
    return (
